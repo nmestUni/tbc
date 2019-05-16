@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\card_requests;
 use App\cards;
+use App\transactionhistory;
 class UserhomeController extends Controller
 {
 
@@ -39,5 +40,12 @@ public function __construct()
             $card->save();
         }
         return redirect()->route("userhome");
+    
+    }
+    public function showcard($id)
+    {
+        $card=cards::where("id",$id)->first();
+        $transactions = transactionhistory::where('senderId', Auth::user()->id)->get();
+        return view("ibank.card")->with("card",$card)->with("trans",$transactions);
     }
 }

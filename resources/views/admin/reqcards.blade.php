@@ -59,7 +59,14 @@
                           {!! Form::open(["action"=>"AdminController@acceptcard","method"=>"post", "enctype" => "multipart/form-data","class"=>""]) !!}
                             <input type="hidden" name="id" value="{{ $card->user_id }}">
                             <button class="btn"> 
-                              <i class="fa fa-ban text-danger" aria-hidden="true"></i> დაბლოკვა 
+                              <i class="fas fa-check text-success"></i></i> თანხმობა 
+                            </button>
+                            
+                          {!! Form::close() !!}
+                           {!! Form::open(["action"=>"AdminController@rejectcard","method"=>"post", "enctype" => "multipart/form-data","class"=>""]) !!}
+                            <input type="hidden" name="id" value="{{ $card->user_id }}">
+                            <button class="btn"> 
+                              <i class="fa fa-ban text-danger" aria-hidden="true"></i> უარყოფა 
                             </button>
                             
                           {!! Form::close() !!}

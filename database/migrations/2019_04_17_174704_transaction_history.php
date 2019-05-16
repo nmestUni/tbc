@@ -17,7 +17,7 @@ class TransactionHistory extends Migration
             $table->bigIncrements('id');
             $table->integer('senderId');
             $table->float('amount');
-            $table->integer('receiverId');
+            $table->string('receiverId');
             $table->timestamps();
         });
     }

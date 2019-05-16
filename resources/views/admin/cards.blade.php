@@ -44,7 +44,25 @@
                       <td>{{ App\user::where("id",$card->userId)->first()->name }} {{ App\user::where("id",$card->userId)->first()->surnamename }}</td>
                       <td>{{ App\user::where("id",$card->userId)->first()->PN }}</td>
                       <td>{{ $card->accNum }}</td>
-                      <td></td>
+                      <td>
+                        
+                        @if($card->is_active==1)
+                          {!! Form::open(["action"=>"AdminController@cardsblock","method"=>"post", "enctype" => "multipart/form-data","class"=>""]) !!}
+                            <input type="hidden" name="id" value="{{ $card->id }}">
+                            <button class="btn"> 
+                              <i class="fa fa-ban text-danger" aria-hidden="true"></i> დაბლოკვა 
+                            </button>
+                            
+                          {!! Form::close() !!}
+                        @else
+                        {!! Form::open(["action"=>"AdminController@cardsunblock","method"=>"post", "enctype" => "multipart/form-data","class"=>""]) !!}
+                          <input type="hidden" name="id" value="{{ $card->id }}">
+                          <button class="btn"> 
+                            <i class="fa fa-check text-success" aria-hidden="true"></i> ბლოკის მოხსნა
+                          </button>
+                        {!! Form::close() !!}
+                        @endif
+                      </td>
                       
                       
                     </tr>

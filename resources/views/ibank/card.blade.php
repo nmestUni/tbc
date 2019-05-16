@@ -6,12 +6,12 @@
     <div class="basic-info">
         <div class="left-info">
             <p class="card-name">ბარათის სახელი</p>
-            <p>GE00FF0111000012131010</p>
+            <p>{{$card->accNum}}</p>
             <a href=" {{ url('/userhome/transfers') }} "><button type="button" class="btn btn-dark">გადარიცხვა</button></a>
         </div>
         <div class="right-info">
             <p class="card-name">ხელმისაწვდომი</p>
-            <p>100.00 GEL</p>
+            <p>{{$card->balance}}</p>
         </div>
     </div>
     <div class="card-details">
@@ -24,7 +24,8 @@
                     ბარათის მფლობელი
                 </td>
                 <td class="last">
-                    SAXELI GVARI
+                    {{Auth::user()->name}}
+                    {{Auth::user()->surname}}
                 </td>
             </tr>
             <tr>
@@ -32,7 +33,7 @@
                     ბარათის ვადა
                 </td>
                 <td class="last">
-                    30/10/2020
+                    {{$card->date}}
                 </td>
             </tr>
             <tr>
@@ -40,7 +41,7 @@
                     ბარათის ნომერი
                 </td>
                 <td class="last">
-                    **** **** **** 00000
+                    {{$card->cardNumber}}
                 </td>
             </tr>
             <tr>
@@ -48,7 +49,12 @@
                     სტატუსი
                 </td>
                 <td class="last">
-                    აქტიური
+                    @if($card->is_active==0)
+                     არა აქტიური
+                    @else
+                        აქტიური
+
+                    @endif
                 </td>
             </tr>
         </table>
@@ -63,17 +69,21 @@
                 <td>მიმღები</td>
                 <td class="last">თანხა</td>
             </tr>
-            <tr>
+            @foreach($trans as $tran)
+                 <tr>
                 <td>
-                    11/12/2018
+                    {{$tran->created_at}}
                 </td>
                 <td>
-                    GE00FF123123000000000
+                    {{$tran->receiverId}}
                 </td>
                 <td class="last">
-                    50.00 GEL
+                    {{ $tran->amount }}
                 </td>
             </tr>
+            @endforeach
+            
+           
 
         </table>
     </div>

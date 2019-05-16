@@ -3,24 +3,24 @@
 @section('title', 'პროდუქტები')
 
 @section('content')
-    <div class="product">
     @if(count($available_cards))
-        <table>
             @foreach($available_cards as $avcards)
+    <div class="product">
+        <table>
             <tr>
                 <td>
-                    <a href="">
+                    <a href="{{ route('showcards',["id"=>$avcards->id]) }}">
                         {{ Auth::user()->name }}-ს MasterCard
                     </a>
                 </td>
                 <td class="last">{{ $avcards->balance }} GEL</td>
             </tr>
-            @endforeach
         </table>
+    </div>
+            @endforeach
     @else
     <p>თქვენ არ გაქვთ ბარათი</p>
     @endif
-    </div>
     <div class="d-flex justify-content-end">
         {!! Form::open(["action"=>"UserhomeController@requestcard","method"=>"post", "enctype" => "multipart/form-data","class"=>"","class"=>['d-flex',"flex-column"] ]) !!}
 

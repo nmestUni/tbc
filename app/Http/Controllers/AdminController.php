@@ -177,12 +177,45 @@ class AdminController extends Controller
     	card_requests::where("id",$reqcard->id)->first()->delete();
     	return redirect()->route("cardrequests");
     }
+    public function rejectcard(Request $request)
+    {
+    	$id=$request->input("id")  ;
+    	card_requests::where("user_id",$id)->first()->delete();
+    	return redirect()->route("cardrequests");
+
+
+    }
+
     public function cards()
     {	
     	$cards=cards::get()	;
-    	var_dump($cards);
-    	exit();
+    	
 		return view("admin.cards")->with("cards",$cards);
+
+
+    }
+    public function cardsblock(Request $request)
+    {	
+    	$card_id=$request->input("id");
+
+    	$cards=cards::where("id",$card_id)->first()	;
+    	$cards->is_active="0";
+
+		$cards->save();    	
+		return redirect()->route("admincards");
+
+
+    }
+    public function cardsunblock(Request $request)
+    {	
+    	$card_id=$request->input("id");
+
+    	$cards=cards::where("id",$card_id)->first()	;
+    	
+    	$cards->is_active="1";
+
+		$cards->save();    	
+		return redirect()->route("admincards");
 
 
     }
